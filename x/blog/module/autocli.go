@@ -28,6 +28,17 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Shows a post by id",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
 				},
+				{
+					RpcMethod: "SentPostAll",
+					Use:       "list-sent-post",
+					Short:     "List all sentPost",
+				},
+				{
+					RpcMethod:      "SentPost",
+					Use:            "show-sent-post [id]",
+					Short:          "Shows a sentPost by id",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "id"}},
+				},
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
