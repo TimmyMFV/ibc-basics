@@ -149,6 +149,7 @@ var xxx_messageInfo_NoData proto.InternalMessageInfo
 type IbcPostPacketData struct {
 	Title   string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
 	Content string `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	Creator string `protobuf:"bytes,3,opt,name=creator,proto3" json:"creator,omitempty"`
 }
 
 func (m *IbcPostPacketData) Reset()         { *m = IbcPostPacketData{} }
