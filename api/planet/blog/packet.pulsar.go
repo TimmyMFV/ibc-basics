@@ -14,14 +14,16 @@ import (
 )
 
 var (
-	md_BlogPacketData        protoreflect.MessageDescriptor
-	fd_BlogPacketData_noData protoreflect.FieldDescriptor
+	md_BlogPacketData               protoreflect.MessageDescriptor
+	fd_BlogPacketData_noData        protoreflect.FieldDescriptor
+	fd_BlogPacketData_ibcPostPacket protoreflect.FieldDescriptor
 )
 
 func init() {
 	file_planet_blog_packet_proto_init()
 	md_BlogPacketData = File_planet_blog_packet_proto.Messages().ByName("BlogPacketData")
 	fd_BlogPacketData_noData = md_BlogPacketData.Fields().ByName("noData")
+	fd_BlogPacketData_ibcPostPacket = md_BlogPacketData.Fields().ByName("ibcPostPacket")
 }
 
 var _ protoreflect.Message = (*fastReflection_BlogPacketData)(nil)
@@ -97,6 +99,12 @@ func (x *fastReflection_BlogPacketData) Range(f func(protoreflect.FieldDescripto
 			if !f(fd_BlogPacketData_noData, value) {
 				return
 			}
+		case *BlogPacketData_IbcPostPacket:
+			v := o.IbcPostPacket
+			value := protoreflect.ValueOfMessage(v.ProtoReflect())
+			if !f(fd_BlogPacketData_ibcPostPacket, value) {
+				return
+			}
 		}
 	}
 }
@@ -122,6 +130,14 @@ func (x *fastReflection_BlogPacketData) Has(fd protoreflect.FieldDescriptor) boo
 		} else {
 			return false
 		}
+	case "planet.blog.BlogPacketData.ibcPostPacket":
+		if x.Packet == nil {
+			return false
+		} else if _, ok := x.Packet.(*BlogPacketData_IbcPostPacket); ok {
+			return true
+		} else {
+			return false
+		}
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.BlogPacketData"))
@@ -139,6 +155,8 @@ func (x *fastReflection_BlogPacketData) Has(fd protoreflect.FieldDescriptor) boo
 func (x *fastReflection_BlogPacketData) Clear(fd protoreflect.FieldDescriptor) {
 	switch fd.FullName() {
 	case "planet.blog.BlogPacketData.noData":
+		x.Packet = nil
+	case "planet.blog.BlogPacketData.ibcPostPacket":
 		x.Packet = nil
 	default:
 		if fd.IsExtension() {
@@ -164,6 +182,14 @@ func (x *fastReflection_BlogPacketData) Get(descriptor protoreflect.FieldDescrip
 		} else {
 			return protoreflect.ValueOfMessage((*NoData)(nil).ProtoReflect())
 		}
+	case "planet.blog.BlogPacketData.ibcPostPacket":
+		if x.Packet == nil {
+			return protoreflect.ValueOfMessage((*IbcPostPacketData)(nil).ProtoReflect())
+		} else if v, ok := x.Packet.(*BlogPacketData_IbcPostPacket); ok {
+			return protoreflect.ValueOfMessage(v.IbcPostPacket.ProtoReflect())
+		} else {
+			return protoreflect.ValueOfMessage((*IbcPostPacketData)(nil).ProtoReflect())
+		}
 	default:
 		if descriptor.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.BlogPacketData"))
@@ -187,6 +213,9 @@ func (x *fastReflection_BlogPacketData) Set(fd protoreflect.FieldDescriptor, val
 	case "planet.blog.BlogPacketData.noData":
 		cv := value.Message().Interface().(*NoData)
 		x.Packet = &BlogPacketData_NoData{NoData: cv}
+	case "planet.blog.BlogPacketData.ibcPostPacket":
+		cv := value.Message().Interface().(*IbcPostPacketData)
+		x.Packet = &BlogPacketData_IbcPostPacket{IbcPostPacket: cv}
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.BlogPacketData"))
@@ -223,6 +252,22 @@ func (x *fastReflection_BlogPacketData) Mutable(fd protoreflect.FieldDescriptor)
 			x.Packet = oneofValue
 			return protoreflect.ValueOfMessage(value.ProtoReflect())
 		}
+	case "planet.blog.BlogPacketData.ibcPostPacket":
+		if x.Packet == nil {
+			value := &IbcPostPacketData{}
+			oneofValue := &BlogPacketData_IbcPostPacket{IbcPostPacket: value}
+			x.Packet = oneofValue
+			return protoreflect.ValueOfMessage(value.ProtoReflect())
+		}
+		switch m := x.Packet.(type) {
+		case *BlogPacketData_IbcPostPacket:
+			return protoreflect.ValueOfMessage(m.IbcPostPacket.ProtoReflect())
+		default:
+			value := &IbcPostPacketData{}
+			oneofValue := &BlogPacketData_IbcPostPacket{IbcPostPacket: value}
+			x.Packet = oneofValue
+			return protoreflect.ValueOfMessage(value.ProtoReflect())
+		}
 	default:
 		if fd.IsExtension() {
 			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.BlogPacketData"))
@@ -238,6 +283,9 @@ func (x *fastReflection_BlogPacketData) NewField(fd protoreflect.FieldDescriptor
 	switch fd.FullName() {
 	case "planet.blog.BlogPacketData.noData":
 		value := &NoData{}
+		return protoreflect.ValueOfMessage(value.ProtoReflect())
+	case "planet.blog.BlogPacketData.ibcPostPacket":
+		value := &IbcPostPacketData{}
 		return protoreflect.ValueOfMessage(value.ProtoReflect())
 	default:
 		if fd.IsExtension() {
@@ -259,6 +307,8 @@ func (x *fastReflection_BlogPacketData) WhichOneof(d protoreflect.OneofDescripto
 		switch x.Packet.(type) {
 		case *BlogPacketData_NoData:
 			return x.Descriptor().Fields().ByName("noData")
+		case *BlogPacketData_IbcPostPacket:
+			return x.Descriptor().Fields().ByName("ibcPostPacket")
 		}
 	default:
 		panic(fmt.Errorf("%s is not a oneof field in planet.blog.BlogPacketData", d.FullName()))
@@ -323,6 +373,12 @@ func (x *fastReflection_BlogPacketData) ProtoMethods() *protoiface.Methods {
 			}
 			l = options.Size(x.NoData)
 			n += 1 + l + runtime.Sov(uint64(l))
+		case *BlogPacketData_IbcPostPacket:
+			if x == nil {
+				break
+			}
+			l = options.Size(x.IbcPostPacket)
+			n += 1 + l + runtime.Sov(uint64(l))
 		}
 		if x.unknownFields != nil {
 			n += len(x.unknownFields)
@@ -367,6 +423,19 @@ func (x *fastReflection_BlogPacketData) ProtoMethods() *protoiface.Methods {
 			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
 			i--
 			dAtA[i] = 0xa
+		case *BlogPacketData_IbcPostPacket:
+			encoded, err := options.Marshal(x.IbcPostPacket)
+			if err != nil {
+				return protoiface.MarshalOutput{
+					NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+					Buf:               input.Buf,
+				}, err
+			}
+			i -= len(encoded)
+			copy(dAtA[i:], encoded)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(encoded)))
+			i--
+			dAtA[i] = 0x12
 		}
 		if input.Buf != nil {
 			input.Buf = append(input.Buf, dAtA...)
@@ -451,6 +520,41 @@ func (x *fastReflection_BlogPacketData) ProtoMethods() *protoiface.Methods {
 					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
 				}
 				x.Packet = &BlogPacketData_NoData{v}
+				iNdEx = postIndex
+			case 2:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field IbcPostPacket", wireType)
+				}
+				var msglen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					msglen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if msglen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + msglen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				v := &IbcPostPacketData{}
+				if err := options.Unmarshal(dAtA[iNdEx:postIndex], v); err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				x.Packet = &BlogPacketData_IbcPostPacket{v}
 				iNdEx = postIndex
 			default:
 				iNdEx = preIndex
@@ -843,6 +947,910 @@ func (x *fastReflection_NoData) ProtoMethods() *protoiface.Methods {
 	}
 }
 
+var (
+	md_IbcPostPacketData         protoreflect.MessageDescriptor
+	fd_IbcPostPacketData_title   protoreflect.FieldDescriptor
+	fd_IbcPostPacketData_content protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_planet_blog_packet_proto_init()
+	md_IbcPostPacketData = File_planet_blog_packet_proto.Messages().ByName("IbcPostPacketData")
+	fd_IbcPostPacketData_title = md_IbcPostPacketData.Fields().ByName("title")
+	fd_IbcPostPacketData_content = md_IbcPostPacketData.Fields().ByName("content")
+}
+
+var _ protoreflect.Message = (*fastReflection_IbcPostPacketData)(nil)
+
+type fastReflection_IbcPostPacketData IbcPostPacketData
+
+func (x *IbcPostPacketData) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_IbcPostPacketData)(x)
+}
+
+func (x *IbcPostPacketData) slowProtoReflect() protoreflect.Message {
+	mi := &file_planet_blog_packet_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_IbcPostPacketData_messageType fastReflection_IbcPostPacketData_messageType
+var _ protoreflect.MessageType = fastReflection_IbcPostPacketData_messageType{}
+
+type fastReflection_IbcPostPacketData_messageType struct{}
+
+func (x fastReflection_IbcPostPacketData_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_IbcPostPacketData)(nil)
+}
+func (x fastReflection_IbcPostPacketData_messageType) New() protoreflect.Message {
+	return new(fastReflection_IbcPostPacketData)
+}
+func (x fastReflection_IbcPostPacketData_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_IbcPostPacketData
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_IbcPostPacketData) Descriptor() protoreflect.MessageDescriptor {
+	return md_IbcPostPacketData
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_IbcPostPacketData) Type() protoreflect.MessageType {
+	return _fastReflection_IbcPostPacketData_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_IbcPostPacketData) New() protoreflect.Message {
+	return new(fastReflection_IbcPostPacketData)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_IbcPostPacketData) Interface() protoreflect.ProtoMessage {
+	return (*IbcPostPacketData)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_IbcPostPacketData) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.Title != "" {
+		value := protoreflect.ValueOfString(x.Title)
+		if !f(fd_IbcPostPacketData_title, value) {
+			return
+		}
+	}
+	if x.Content != "" {
+		value := protoreflect.ValueOfString(x.Content)
+		if !f(fd_IbcPostPacketData_content, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_IbcPostPacketData) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "planet.blog.IbcPostPacketData.title":
+		return x.Title != ""
+	case "planet.blog.IbcPostPacketData.content":
+		return x.Content != ""
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.IbcPostPacketData"))
+		}
+		panic(fmt.Errorf("message planet.blog.IbcPostPacketData does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_IbcPostPacketData) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "planet.blog.IbcPostPacketData.title":
+		x.Title = ""
+	case "planet.blog.IbcPostPacketData.content":
+		x.Content = ""
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.IbcPostPacketData"))
+		}
+		panic(fmt.Errorf("message planet.blog.IbcPostPacketData does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_IbcPostPacketData) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "planet.blog.IbcPostPacketData.title":
+		value := x.Title
+		return protoreflect.ValueOfString(value)
+	case "planet.blog.IbcPostPacketData.content":
+		value := x.Content
+		return protoreflect.ValueOfString(value)
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.IbcPostPacketData"))
+		}
+		panic(fmt.Errorf("message planet.blog.IbcPostPacketData does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_IbcPostPacketData) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "planet.blog.IbcPostPacketData.title":
+		x.Title = value.Interface().(string)
+	case "planet.blog.IbcPostPacketData.content":
+		x.Content = value.Interface().(string)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.IbcPostPacketData"))
+		}
+		panic(fmt.Errorf("message planet.blog.IbcPostPacketData does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_IbcPostPacketData) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "planet.blog.IbcPostPacketData.title":
+		panic(fmt.Errorf("field title of message planet.blog.IbcPostPacketData is not mutable"))
+	case "planet.blog.IbcPostPacketData.content":
+		panic(fmt.Errorf("field content of message planet.blog.IbcPostPacketData is not mutable"))
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.IbcPostPacketData"))
+		}
+		panic(fmt.Errorf("message planet.blog.IbcPostPacketData does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_IbcPostPacketData) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "planet.blog.IbcPostPacketData.title":
+		return protoreflect.ValueOfString("")
+	case "planet.blog.IbcPostPacketData.content":
+		return protoreflect.ValueOfString("")
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.IbcPostPacketData"))
+		}
+		panic(fmt.Errorf("message planet.blog.IbcPostPacketData does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_IbcPostPacketData) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in planet.blog.IbcPostPacketData", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_IbcPostPacketData) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_IbcPostPacketData) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_IbcPostPacketData) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_IbcPostPacketData) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*IbcPostPacketData)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		l = len(x.Title)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		l = len(x.Content)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*IbcPostPacketData)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.Content) > 0 {
+			i -= len(x.Content)
+			copy(dAtA[i:], x.Content)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Content)))
+			i--
+			dAtA[i] = 0x12
+		}
+		if len(x.Title) > 0 {
+			i -= len(x.Title)
+			copy(dAtA[i:], x.Title)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Title)))
+			i--
+			dAtA[i] = 0xa
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*IbcPostPacketData)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: IbcPostPacketData: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: IbcPostPacketData: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Title = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			case 2:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Content", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Content = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var (
+	md_IbcPostPacketAck        protoreflect.MessageDescriptor
+	fd_IbcPostPacketAck_postId protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_planet_blog_packet_proto_init()
+	md_IbcPostPacketAck = File_planet_blog_packet_proto.Messages().ByName("IbcPostPacketAck")
+	fd_IbcPostPacketAck_postId = md_IbcPostPacketAck.Fields().ByName("postId")
+}
+
+var _ protoreflect.Message = (*fastReflection_IbcPostPacketAck)(nil)
+
+type fastReflection_IbcPostPacketAck IbcPostPacketAck
+
+func (x *IbcPostPacketAck) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_IbcPostPacketAck)(x)
+}
+
+func (x *IbcPostPacketAck) slowProtoReflect() protoreflect.Message {
+	mi := &file_planet_blog_packet_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_IbcPostPacketAck_messageType fastReflection_IbcPostPacketAck_messageType
+var _ protoreflect.MessageType = fastReflection_IbcPostPacketAck_messageType{}
+
+type fastReflection_IbcPostPacketAck_messageType struct{}
+
+func (x fastReflection_IbcPostPacketAck_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_IbcPostPacketAck)(nil)
+}
+func (x fastReflection_IbcPostPacketAck_messageType) New() protoreflect.Message {
+	return new(fastReflection_IbcPostPacketAck)
+}
+func (x fastReflection_IbcPostPacketAck_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_IbcPostPacketAck
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_IbcPostPacketAck) Descriptor() protoreflect.MessageDescriptor {
+	return md_IbcPostPacketAck
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_IbcPostPacketAck) Type() protoreflect.MessageType {
+	return _fastReflection_IbcPostPacketAck_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_IbcPostPacketAck) New() protoreflect.Message {
+	return new(fastReflection_IbcPostPacketAck)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_IbcPostPacketAck) Interface() protoreflect.ProtoMessage {
+	return (*IbcPostPacketAck)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_IbcPostPacketAck) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.PostId != "" {
+		value := protoreflect.ValueOfString(x.PostId)
+		if !f(fd_IbcPostPacketAck_postId, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_IbcPostPacketAck) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "planet.blog.IbcPostPacketAck.postId":
+		return x.PostId != ""
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.IbcPostPacketAck"))
+		}
+		panic(fmt.Errorf("message planet.blog.IbcPostPacketAck does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_IbcPostPacketAck) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "planet.blog.IbcPostPacketAck.postId":
+		x.PostId = ""
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.IbcPostPacketAck"))
+		}
+		panic(fmt.Errorf("message planet.blog.IbcPostPacketAck does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_IbcPostPacketAck) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "planet.blog.IbcPostPacketAck.postId":
+		value := x.PostId
+		return protoreflect.ValueOfString(value)
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.IbcPostPacketAck"))
+		}
+		panic(fmt.Errorf("message planet.blog.IbcPostPacketAck does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_IbcPostPacketAck) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "planet.blog.IbcPostPacketAck.postId":
+		x.PostId = value.Interface().(string)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.IbcPostPacketAck"))
+		}
+		panic(fmt.Errorf("message planet.blog.IbcPostPacketAck does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_IbcPostPacketAck) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "planet.blog.IbcPostPacketAck.postId":
+		panic(fmt.Errorf("field postId of message planet.blog.IbcPostPacketAck is not mutable"))
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.IbcPostPacketAck"))
+		}
+		panic(fmt.Errorf("message planet.blog.IbcPostPacketAck does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_IbcPostPacketAck) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "planet.blog.IbcPostPacketAck.postId":
+		return protoreflect.ValueOfString("")
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: planet.blog.IbcPostPacketAck"))
+		}
+		panic(fmt.Errorf("message planet.blog.IbcPostPacketAck does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_IbcPostPacketAck) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in planet.blog.IbcPostPacketAck", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_IbcPostPacketAck) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_IbcPostPacketAck) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_IbcPostPacketAck) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_IbcPostPacketAck) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*IbcPostPacketAck)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		l = len(x.PostId)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*IbcPostPacketAck)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if len(x.PostId) > 0 {
+			i -= len(x.PostId)
+			copy(dAtA[i:], x.PostId)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.PostId)))
+			i--
+			dAtA[i] = 0xa
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*IbcPostPacketAck)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: IbcPostPacketAck: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: IbcPostPacketAck: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field PostId", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.PostId = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
 // Code generated by protoc-gen-go. DO NOT EDIT.
 // versions:
 // 	protoc-gen-go v1.27.0
@@ -864,6 +1872,7 @@ type BlogPacketData struct {
 	// Types that are assignable to Packet:
 	//
 	//	*BlogPacketData_NoData
+	//	*BlogPacketData_IbcPostPacket
 	Packet isBlogPacketData_Packet `protobuf_oneof:"packet"`
 }
 
@@ -901,6 +1910,13 @@ func (x *BlogPacketData) GetNoData() *NoData {
 	return nil
 }
 
+func (x *BlogPacketData) GetIbcPostPacket() *IbcPostPacketData {
+	if x, ok := x.GetPacket().(*BlogPacketData_IbcPostPacket); ok {
+		return x.IbcPostPacket
+	}
+	return nil
+}
+
 type isBlogPacketData_Packet interface {
 	isBlogPacketData_Packet()
 }
@@ -909,7 +1925,13 @@ type BlogPacketData_NoData struct {
 	NoData *NoData `protobuf:"bytes,1,opt,name=noData,proto3,oneof"`
 }
 
+type BlogPacketData_IbcPostPacket struct {
+	IbcPostPacket *IbcPostPacketData `protobuf:"bytes,2,opt,name=ibcPostPacket,proto3,oneof"`
+}
+
 func (*BlogPacketData_NoData) isBlogPacketData_Packet() {}
+
+func (*BlogPacketData_IbcPostPacket) isBlogPacketData_Packet() {}
 
 type NoData struct {
 	state         protoimpl.MessageState
@@ -937,26 +1959,118 @@ func (*NoData) Descriptor() ([]byte, []int) {
 	return file_planet_blog_packet_proto_rawDescGZIP(), []int{1}
 }
 
+// IbcPostPacketData defines a struct for the packet payload
+type IbcPostPacketData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Title   string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Content string `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+}
+
+func (x *IbcPostPacketData) Reset() {
+	*x = IbcPostPacketData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_planet_blog_packet_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *IbcPostPacketData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IbcPostPacketData) ProtoMessage() {}
+
+// Deprecated: Use IbcPostPacketData.ProtoReflect.Descriptor instead.
+func (*IbcPostPacketData) Descriptor() ([]byte, []int) {
+	return file_planet_blog_packet_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *IbcPostPacketData) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *IbcPostPacketData) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+// IbcPostPacketAck defines a struct for the packet acknowledgment
+type IbcPostPacketAck struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	PostId string `protobuf:"bytes,1,opt,name=postId,proto3" json:"postId,omitempty"`
+}
+
+func (x *IbcPostPacketAck) Reset() {
+	*x = IbcPostPacketAck{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_planet_blog_packet_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *IbcPostPacketAck) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IbcPostPacketAck) ProtoMessage() {}
+
+// Deprecated: Use IbcPostPacketAck.ProtoReflect.Descriptor instead.
+func (*IbcPostPacketAck) Descriptor() ([]byte, []int) {
+	return file_planet_blog_packet_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *IbcPostPacketAck) GetPostId() string {
+	if x != nil {
+		return x.PostId
+	}
+	return ""
+}
+
 var File_planet_blog_packet_proto protoreflect.FileDescriptor
 
 var file_planet_blog_packet_proto_rawDesc = []byte{
 	0x0a, 0x18, 0x70, 0x6c, 0x61, 0x6e, 0x65, 0x74, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0x2f, 0x70, 0x61,
 	0x63, 0x6b, 0x65, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0b, 0x70, 0x6c, 0x61, 0x6e,
-	0x65, 0x74, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x22, 0x49, 0x0a, 0x0e, 0x42, 0x6c, 0x6f, 0x67, 0x50,
-	0x61, 0x63, 0x6b, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61, 0x12, 0x2d, 0x0a, 0x06, 0x6e, 0x6f, 0x44,
-	0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70, 0x6c, 0x61, 0x6e,
-	0x65, 0x74, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4e, 0x6f, 0x44, 0x61, 0x74, 0x61, 0x48, 0x00,
-	0x52, 0x06, 0x6e, 0x6f, 0x44, 0x61, 0x74, 0x61, 0x42, 0x08, 0x0a, 0x06, 0x70, 0x61, 0x63, 0x6b,
-	0x65, 0x74, 0x22, 0x08, 0x0a, 0x06, 0x4e, 0x6f, 0x44, 0x61, 0x74, 0x61, 0x42, 0x89, 0x01, 0x0a,
-	0x0f, 0x63, 0x6f, 0x6d, 0x2e, 0x70, 0x6c, 0x61, 0x6e, 0x65, 0x74, 0x2e, 0x62, 0x6c, 0x6f, 0x67,
-	0x42, 0x0b, 0x50, 0x61, 0x63, 0x6b, 0x65, 0x74, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a,
-	0x1c, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f, 0x61, 0x70,
-	0x69, 0x2f, 0x70, 0x6c, 0x61, 0x6e, 0x65, 0x74, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0xa2, 0x02, 0x03,
-	0x50, 0x42, 0x58, 0xaa, 0x02, 0x0b, 0x50, 0x6c, 0x61, 0x6e, 0x65, 0x74, 0x2e, 0x42, 0x6c, 0x6f,
-	0x67, 0xca, 0x02, 0x0b, 0x50, 0x6c, 0x61, 0x6e, 0x65, 0x74, 0x5c, 0x42, 0x6c, 0x6f, 0x67, 0xe2,
-	0x02, 0x17, 0x50, 0x6c, 0x61, 0x6e, 0x65, 0x74, 0x5c, 0x42, 0x6c, 0x6f, 0x67, 0x5c, 0x47, 0x50,
-	0x42, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x0c, 0x50, 0x6c, 0x61, 0x6e,
-	0x65, 0x74, 0x3a, 0x3a, 0x42, 0x6c, 0x6f, 0x67, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x74, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x22, 0x91, 0x01, 0x0a, 0x0e, 0x42, 0x6c, 0x6f, 0x67,
+	0x50, 0x61, 0x63, 0x6b, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61, 0x12, 0x2d, 0x0a, 0x06, 0x6e, 0x6f,
+	0x44, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70, 0x6c, 0x61,
+	0x6e, 0x65, 0x74, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x4e, 0x6f, 0x44, 0x61, 0x74, 0x61, 0x48,
+	0x00, 0x52, 0x06, 0x6e, 0x6f, 0x44, 0x61, 0x74, 0x61, 0x12, 0x46, 0x0a, 0x0d, 0x69, 0x62, 0x63,
+	0x50, 0x6f, 0x73, 0x74, 0x50, 0x61, 0x63, 0x6b, 0x65, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x1e, 0x2e, 0x70, 0x6c, 0x61, 0x6e, 0x65, 0x74, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x2e, 0x49,
+	0x62, 0x63, 0x50, 0x6f, 0x73, 0x74, 0x50, 0x61, 0x63, 0x6b, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61,
+	0x48, 0x00, 0x52, 0x0d, 0x69, 0x62, 0x63, 0x50, 0x6f, 0x73, 0x74, 0x50, 0x61, 0x63, 0x6b, 0x65,
+	0x74, 0x42, 0x08, 0x0a, 0x06, 0x70, 0x61, 0x63, 0x6b, 0x65, 0x74, 0x22, 0x08, 0x0a, 0x06, 0x4e,
+	0x6f, 0x44, 0x61, 0x74, 0x61, 0x22, 0x43, 0x0a, 0x11, 0x49, 0x62, 0x63, 0x50, 0x6f, 0x73, 0x74,
+	0x50, 0x61, 0x63, 0x6b, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69,
+	0x74, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65,
+	0x12, 0x18, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x22, 0x2a, 0x0a, 0x10, 0x49, 0x62,
+	0x63, 0x50, 0x6f, 0x73, 0x74, 0x50, 0x61, 0x63, 0x6b, 0x65, 0x74, 0x41, 0x63, 0x6b, 0x12, 0x16,
+	0x0a, 0x06, 0x70, 0x6f, 0x73, 0x74, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06,
+	0x70, 0x6f, 0x73, 0x74, 0x49, 0x64, 0x42, 0x89, 0x01, 0x0a, 0x0f, 0x63, 0x6f, 0x6d, 0x2e, 0x70,
+	0x6c, 0x61, 0x6e, 0x65, 0x74, 0x2e, 0x62, 0x6c, 0x6f, 0x67, 0x42, 0x0b, 0x50, 0x61, 0x63, 0x6b,
+	0x65, 0x74, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50, 0x01, 0x5a, 0x1c, 0x63, 0x6f, 0x73, 0x6d, 0x6f,
+	0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x70, 0x6c, 0x61, 0x6e,
+	0x65, 0x74, 0x2f, 0x62, 0x6c, 0x6f, 0x67, 0xa2, 0x02, 0x03, 0x50, 0x42, 0x58, 0xaa, 0x02, 0x0b,
+	0x50, 0x6c, 0x61, 0x6e, 0x65, 0x74, 0x2e, 0x42, 0x6c, 0x6f, 0x67, 0xca, 0x02, 0x0b, 0x50, 0x6c,
+	0x61, 0x6e, 0x65, 0x74, 0x5c, 0x42, 0x6c, 0x6f, 0x67, 0xe2, 0x02, 0x17, 0x50, 0x6c, 0x61, 0x6e,
+	0x65, 0x74, 0x5c, 0x42, 0x6c, 0x6f, 0x67, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64,
+	0x61, 0x74, 0x61, 0xea, 0x02, 0x0c, 0x50, 0x6c, 0x61, 0x6e, 0x65, 0x74, 0x3a, 0x3a, 0x42, 0x6c,
+	0x6f, 0x67, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -971,18 +2085,21 @@ func file_planet_blog_packet_proto_rawDescGZIP() []byte {
 	return file_planet_blog_packet_proto_rawDescData
 }
 
-var file_planet_blog_packet_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_planet_blog_packet_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_planet_blog_packet_proto_goTypes = []interface{}{
-	(*BlogPacketData)(nil), // 0: planet.blog.BlogPacketData
-	(*NoData)(nil),         // 1: planet.blog.NoData
+	(*BlogPacketData)(nil),    // 0: planet.blog.BlogPacketData
+	(*NoData)(nil),            // 1: planet.blog.NoData
+	(*IbcPostPacketData)(nil), // 2: planet.blog.IbcPostPacketData
+	(*IbcPostPacketAck)(nil),  // 3: planet.blog.IbcPostPacketAck
 }
 var file_planet_blog_packet_proto_depIdxs = []int32{
 	1, // 0: planet.blog.BlogPacketData.noData:type_name -> planet.blog.NoData
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	2, // 1: planet.blog.BlogPacketData.ibcPostPacket:type_name -> planet.blog.IbcPostPacketData
+	2, // [2:2] is the sub-list for method output_type
+	2, // [2:2] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_planet_blog_packet_proto_init() }
@@ -1015,9 +2132,34 @@ func file_planet_blog_packet_proto_init() {
 				return nil
 			}
 		}
+		file_planet_blog_packet_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*IbcPostPacketData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_planet_blog_packet_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*IbcPostPacketAck); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	file_planet_blog_packet_proto_msgTypes[0].OneofWrappers = []interface{}{
 		(*BlogPacketData_NoData)(nil),
+		(*BlogPacketData_IbcPostPacket)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -1025,7 +2167,7 @@ func file_planet_blog_packet_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_planet_blog_packet_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
